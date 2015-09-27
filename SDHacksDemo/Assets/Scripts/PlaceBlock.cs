@@ -35,6 +35,9 @@ public class PlaceBlock : MonoBehaviour {
             float z = ( Mathf.Cos(xzAngle));
             Vector3 placementVector = new Vector3(x, .25f, z);
             placedObject = (GameObject)GameObject.Instantiate(objectToPlace, transform.position + (distanceFromPlayer * placementVector), transform.rotation);
+            // This will make the player object the parent of our block in the 
+            // scene hierarchy and will make the block move and rotate with the 
+            // player. 
             placedObject.transform.parent = transform;
         }
         if (Input.GetMouseButton(0)) // This method returns true while the button is held
@@ -52,7 +55,10 @@ public class PlaceBlock : MonoBehaviour {
         // This method checks if the mouse click has been released
         if (Input.GetMouseButtonUp(0)) // This method fires once per release
         {
+            // This removes the parent-child dependency from the block to 
+            // player
             placedObject.transform.parent = null;
+            // A rigid body allows physics and gravity to affect the block
             placedObject.AddComponent<Rigidbody>();
         }
 	}
